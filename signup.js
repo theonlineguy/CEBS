@@ -2,23 +2,45 @@ import React,{Component} from 'react';
 import { StyleSheet, Text, View,ImageBackground,TextInput,Image,KeyboardAvoidingView } from 'react-native';
 import { Container, Header, Content, Form, Item, Input, Label,Button,ListItem,CheckBox,Body } from 'native-base';
 import { StackNavigator } from 'react-navigation';
+import KeyboardSpacer from 'react-native-keyboard-spacer';
 
 export default class signup extends Component {
+    constructor(props){
+        super(props)
+    
+        this.state = {
+          username: '',
+          password: '',
+        }
+      }
     static navigationOptions = {
         header: false
     }
+    onChanged(text){
+        this.setState({
+         username:text
+        })
+        if(this.state.username.length == 5){
+            this.props.navigation.navigate('Next')
+        }
+       
+     }
+    _handlePress() {
+        alert(this.state.username);
+        
+      }
   
   render() {
  
 
     return (
     
-      <View style={styles.container}>
+      <View style={styles.container} >
         <ImageBackground  style={styles.background} source={require('./images/backgroundone.jpg')} >
         <View style={styles.imagesHolder}>
             <Image style={styles.images} source={require('./images/logo.png')} />
         </View>
-        <KeyboardAvoidingView style={styles.body} behavior="padding">
+        <View style={styles.body} >
                         <Text style={styles.signUp}>SIGN UP</Text>
                         <Form>
                              <Item  floatingLabel >         
@@ -34,25 +56,25 @@ export default class signup extends Component {
                              <Label  style={{color:"white"}}>Mobile No</Label> 
                                  <Input  style={styles.laabel}  />
                              </Item>
-                      
                              <View style={styles.cont}> 
                                 
-                                     <Button style={styles.but} onPress={() => this.props.navigation.navigate('Next')} ><Text>GET OTP</Text></Button>
-                                  
+                                <Button style={styles.but} onPress={() => this.props.navigation.navigate('Next')} ><Text>GET OTP</Text></Button>
+                             
 
-                            <Item  floatingLabel style={styles.otp}>
-                             <Label  style={{ color:"white",textAlign:"center"}}>Enter OTP</Label> 
-                          
-                                 <Input style={styles.laabel}  />
-                                
-                             </Item>
-                             </View>
+                       <Item  floatingLabel style={styles.otp}>
+                        <Label  style={{ color:"white",textAlign:"center"}}>Enter OTP</Label> 
+                     
+                            <Input style={styles.laabel}     value={this.state.username}  onChangeText={(value) => this.onChanged(value)}  />
+                           
+                        </Item>
+                        </View>
+                             
                              
                        </Form>
-                    
-                 </KeyboardAvoidingView>  
-                
+                  
+                 </View>  
          </ImageBackground>
+         <KeyboardSpacer />
       </View>  
     );
   }
@@ -72,7 +94,7 @@ const styles = StyleSheet.create({
     imagesHolder :{
         flex:1,
         justifyContent:"flex-end",
-        alignContent:"center"
+        alignContent:"flex-end"
     },
     images : {
         height:101,
@@ -91,6 +113,7 @@ const styles = StyleSheet.create({
         color:"white"
     },
     cont : {
+        
         padding:15,
         alignSelf:"center"
     },
@@ -109,7 +132,3 @@ const styles = StyleSheet.create({
         textAlign:"center"
     }
 })
-
-
-
-
