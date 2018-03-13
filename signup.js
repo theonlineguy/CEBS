@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import { StyleSheet, Text, View,ImageBackground,TextInput,Image,KeyboardAvoidingView } from 'react-native';
+import { StyleSheet, Text, View,ImageBackground,TextInput,Image,KeyboardAvoidingView,ScrollView } from 'react-native';
 import { Container, Header, Content, Form, Item, Input, Label,Button,ListItem,CheckBox,Body } from 'native-base';
 import { StackNavigator } from 'react-navigation';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
@@ -35,13 +35,17 @@ export default class signup extends Component {
 
     return (
     
-      <View style={styles.container} >
+      <KeyboardAvoidingView style={styles.container} behavior="padding">
+     
         <ImageBackground  style={styles.background} source={require('./images/backgroundone.jpg')} >
+        <ScrollView style={{marginTop:100}}>
         <View style={styles.imagesHolder}>
             <Image style={styles.images} source={require('./images/logo.png')} />
+           
         </View>
+        <Text style={styles.signUp}>SIGN UP</Text>
         <View style={styles.body} >
-                        <Text style={styles.signUp}>SIGN UP</Text>
+                        
                         <Form>
                              <Item  floatingLabel >         
                              <Label style={{color:"white"}}>User Id</Label>       
@@ -56,9 +60,15 @@ export default class signup extends Component {
                              <Label  style={{color:"white"}}>Mobile No</Label> 
                                  <Input  style={styles.laabel}  />
                              </Item>
-                             <View style={styles.cont}> 
+                       
+                             <Button style={styles.but} onPress={() => this.props.navigation.navigate('Next')} ><Text>GET OTP</Text></Button>
+                             
+                       </Form>
+                  
+                 </View>  
+                 <View style={styles.cont}> 
                                 
-                                <Button style={styles.but} onPress={() => this.props.navigation.navigate('Next')} ><Text>GET OTP</Text></Button>
+                               
                              
 
                        <Item  floatingLabel style={styles.otp}>
@@ -68,14 +78,11 @@ export default class signup extends Component {
                            
                         </Item>
                         </View>
-                             
-                             
-                       </Form>
-                  
-                 </View>  
+                        
+         </ScrollView>
          </ImageBackground>
-         <KeyboardSpacer />
-      </View>  
+      </KeyboardAvoidingView>  
+     
     );
   }
 }
@@ -83,7 +90,7 @@ export default class signup extends Component {
 const styles = StyleSheet.create({
 
     container : {
-        flex:1
+        flex:1,
     },
 
     background : {
@@ -104,7 +111,7 @@ const styles = StyleSheet.create({
     body : {
         flex:2,
         padding:25,
-        justifyContent:"center"
+        justifyContent:"flex-start"
     },
     signUp : {
         fontSize:25,color:"white",textAlign:"center"
@@ -115,14 +122,16 @@ const styles = StyleSheet.create({
     cont : {
         
         padding:15,
-        alignSelf:"center"
+        justifyContent:"flex-start",
+        alignContent:"center"
     },
     but : {
         backgroundColor:"white",
         width:100,
         justifyContent:"center",
         borderRadius:5,
-        alignSelf:"center"
+        alignSelf:"center",
+        marginTop:10
     },
     otp : {
         width:150
